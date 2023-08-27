@@ -1,9 +1,10 @@
 const Router = require('express')
 const router = new Router()
 const deviceController = require('../controllers/deviceController')
+const checkRole = require("../Middleware/checkRoleMiddleware");
 
-router.post('/', deviceController.create)
-router.delete('/', deviceController.delete)
+router.post('/', checkRole('ADMIN'), deviceController.create)
+router.delete('/', checkRole('ADMIN'), deviceController.delete)
 router.get('/', deviceController.getAll)
 router.get('/:id', deviceController.getOne)
 
